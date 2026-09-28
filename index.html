@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portfolio Muhamad Zaim Zamzami, programmer web yang berpengalaman membangun aplikasi .NET Core, Laravel, CodeIgniter, dan database SQL.">
+  <title>Muhamad Zaim Zamzami — Backend & Full-Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/resume.css" rel="stylesheet">
+</head>
+<body>
+  <div id="app" v-cloak>
+    <header class="site-header" :class="{ 'is-scrolled': scrolled }">
+      <nav class="container nav-shell" aria-label="Navigasi utama">
+        <a class="brand" href="#home" @click="closeMenu">ZAIM<span>.</span></a>
+        <button class="menu-toggle" type="button" @click="menuOpen = !menuOpen" :aria-expanded="menuOpen" aria-label="Buka navigasi">
+          <i :class="menuOpen ? 'bi bi-x-lg' : 'bi bi-list'"></i>
+        </button>
+        <div class="nav-links" :class="{ 'is-open': menuOpen }">
+          <a v-for="item in navItems" :key="item.id" :href="'#' + item.id" :class="{ active: activeSection === item.id }" @click="closeMenu">{{ item.label }}</a>
+        </div>
+        <a class="btn-dark-custom d-none d-lg-inline-flex" href="#contact">LET'S TALK <i class="bi bi-arrow-up-right"></i></a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero-section section-track">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow"><span></span> PROGRAMMER · WEB DEVELOPER</p>
+            <h1>I BUILD WEB<br>APPLICATIONS<br><em>THAT WORK.</em></h1>
+            <p class="hero-lead">Programmer web yang berpengalaman membangun aplikasi .NET Core, REST API, autentikasi, desain database, dan integrasi frontend, dengan tujuan berkembang menjadi full-stack developer dan system analyst.</p>
+            <div class="hero-actions">
+              <a class="btn-dark-custom" href="#work">VIEW MY WORK <i class="bi bi-arrow-right"></i></a>
+              <a class="btn-outline-custom" href="assets/docs/Muhamad_Zaim_Zamzami_Resume.pdf" download>DOWNLOAD CV <i class="bi bi-download"></i></a>
+            </div>
+            <div class="hero-stats">
+              <div v-for="stat in stats" :key="stat.label" class="stat-item">
+                <strong>{{ stat.value }}</strong><span>{{ stat.label }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual reveal delay-1">
+            <div class="portrait-frame">
+              <img src="assets/img/developer-portrait.png" alt="Portrait profesional dummy untuk diganti dengan foto pemilik portfolio">
+            </div>
+            <div class="availability-card">
+              <span class="signature">M. Zaim</span>
+              <span><i></i> BASED IN SOUTH JAKARTA</span>
+            </div>
+            <div class="code-stamp">C# / PHP / SQL</div>
+          </div>
+        </div>
+        <div class="tech-strip">
+          <div class="container">
+            <small>CORE TECHNOLOGIES</small>
+            <div class="tech-list"><span v-for="tech in technologies" :key="tech">{{ tech }}</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="work" class="work-section section-track">
+        <div class="container">
+          <div class="section-heading light reveal">
+            <p class="eyebrow"><span></span> SELECTED WORK</p>
+            <button class="text-link" @click="showAllProjects = !showAllProjects">{{ showAllProjects ? 'SHOW FEATURED' : 'VIEW ALL PROJECTS' }} <i class="bi bi-arrow-right"></i></button>
+          </div>
+          <div class="project-grid">
+            <article v-for="project in visibleProjects" :key="project.id" class="project-card reveal" @click="openProject(project)" tabindex="0" @keyup.enter="openProject(project)">
+              <div class="project-preview" :class="project.theme">
+                <div class="preview-top"><span></span><span></span><span></span></div>
+                <div class="preview-ui">
+                  <div class="preview-sidebar"></div>
+                  <div class="preview-content">
+                    <div class="preview-title"></div><div class="preview-cards"><i></i><i></i><i></i></div><div class="preview-table"></div>
+                  </div>
+                </div>
+                <span class="project-number">0{{ project.id }}</span>
+              </div>
+              <div class="project-meta">
+                <div><small>{{ project.category }}</small><h3>{{ project.title }}</h3></div>
+                <span class="circle-arrow"><i class="bi bi-arrow-up-right"></i></span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="about-section section-track">
+        <div class="container">
+          <div class="about-intro reveal">
+            <p class="eyebrow"><span></span> MORE THAN WRITING CODE</p>
+            <h2>STRUCTURE FIRST.<br><em>IMPACT ALWAYS.</em></h2>
+            <p>Saya terbiasa mengembangkan dan memelihara aplikasi internal, menganalisis kebutuhan bersama Business Analyst dan user, mengintegrasikan database, serta menangani troubleshooting dan debugging agar sistem tetap stabil.</p>
+          </div>
+          <div class="capability-grid">
+            <article v-for="capability in capabilities" :key="capability.title" class="capability-card reveal">
+              <i :class="capability.icon"></i><h3>{{ capability.title }}</h3><p>{{ capability.description }}</p>
+              <span>EXPLORE <i class="bi bi-arrow-right"></i></span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="process" class="process-section section-track">
+        <div class="container">
+          <div class="section-heading reveal"><p class="eyebrow"><span></span> HOW I WORK</p></div>
+          <div class="process-line">
+            <article v-for="(step, index) in process" :key="step.title" class="process-step reveal">
+              <strong>0{{ index + 1 }}</strong><span class="process-dot"></span><h3>{{ step.title }}</h3><p>{{ step.description }}</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" class="experience-section section-track">
+        <div class="container experience-grid">
+          <div class="experience-heading reveal">
+            <p class="eyebrow"><span></span> EXPERIENCE</p>
+            <h2>EXPERIENCE,<br>EDUCATION &<br><em>CONTINUOUS GROWTH.</em></h2>
+          </div>
+          <div class="timeline">
+            <article v-for="item in experiences" :key="item.company" class="timeline-item reveal">
+              <span>{{ item.period }}</span><div><h3>{{ item.role }}</h3><h4>{{ item.company }}</h4><p>{{ item.description }}</p><small>{{ item.stack }}</small></div>
+            </article>
+            <div class="education-title reveal">EDUCATION</div>
+            <article v-for="item in education" :key="item.institution" class="timeline-item education-item reveal">
+              <span>{{ item.period }}</span><div><h3>{{ item.institution }}</h3><h4>{{ item.program }}</h4><p>{{ item.detail }}</p></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="contact-section section-track">
+        <div class="container contact-grid">
+          <div class="contact-copy reveal">
+            <p class="eyebrow"><span></span> LET'S WORK TOGETHER</p>
+            <h2>HAVE A SYSTEM<br>TO <em>BUILD?</em></h2>
+            <p>Saya terbuka untuk diskusi mengenai pengembangan aplikasi bisnis, integrasi sistem, dan peluang programmer atau backend/full-stack development.</p>
+            <ul><li><i class="bi bi-envelope"></i> mzaimzamzami92@gmail.com</li><li><i class="bi bi-telephone"></i> +62 853-2516-9635</li><li><i class="bi bi-geo-alt"></i> Setiabudi, Jakarta Selatan</li></ul>
+          </div>
+          <form class="contact-form reveal delay-1" @submit.prevent="submitForm">
+            <div class="form-row"><input v-model="form.name" type="text" placeholder="Your Name" required><input v-model="form.email" type="email" placeholder="Your Email" required></div>
+            <div class="form-row"><select v-model="form.type" required><option value="" disabled>Project Type</option><option>Business Application</option><option>API Integration</option><option>Backend Development</option><option>Other</option></select><input v-model="form.company" type="text" placeholder="Company / Organization"></div>
+            <textarea v-model="form.message" rows="5" placeholder="Tell me about your project..." required></textarea>
+            <button class="btn-dark-custom" type="submit">SEND MESSAGE <i class="bi bi-arrow-right"></i></button>
+            <p v-if="formSent" class="form-success"><i class="bi bi-check-circle"></i> Demo berhasil. Hubungkan form ini ke backend Laravel Anda.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer><div class="container"><a class="brand" href="#home">ZAIM<span>.</span></a><p>© {{ currentYear }} Portfolio Demo. Built for Laravel integration.</p><a href="#home" aria-label="Kembali ke atas"><i class="bi bi-arrow-up"></i></a></div></footer>
+
+    <div v-if="selectedProject" class="modal-backdrop-custom" @click.self="closeProject">
+      <div class="project-modal" role="dialog" aria-modal="true" :aria-label="selectedProject.title">
+        <button class="modal-close" @click="closeProject" aria-label="Tutup"><i class="bi bi-x-lg"></i></button>
+        <p class="eyebrow"><span></span> {{ selectedProject.category }}</p><h2>{{ selectedProject.title }}</h2><p>{{ selectedProject.description }}</p>
+        <div class="modal-facts"><div><small>PROBLEM</small><p>{{ selectedProject.problem }}</p></div><div><small>SOLUTION</small><p>{{ selectedProject.solution }}</p></div></div>
+        <div class="stack-tags"><span v-for="item in selectedProject.stack" :key="item">{{ item }}</span></div>
+        <p class="dummy-note">Ringkasan proyek disusun dari CV dan dapat dilengkapi dengan studi kasus, screenshot, serta dampak terukur.</p>
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/vue@3.5.22/dist/vue.global.prod.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
